@@ -3,5 +3,7 @@ const app = express()
 
 //route imports
 
+const product = require('./routes/productroute')
+app.use('/api/v1',product)
 
 module.exports = app
