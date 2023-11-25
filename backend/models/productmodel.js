@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-const productSchema = mongoose.Schema({
+const productSchema = mongoose.Schema(
+    {
     name:{
         type:String,
         required:[true,"Please Enter Product Name"],
@@ -8,11 +9,11 @@ const productSchema = mongoose.Schema({
     },
     description: {
         type: String,
-        required: [true, "Please Enter Product Description"]
+        required: [true,"Please Enter Product Description"]
     },
     price: {
         type: Number,
-        required: [true, "Please Enter Product Price"],
+        required: [true,"Please Enter Product Price"],
         maxLength:[8,"Price Cannot Exceed 8 Figures"]
     },
     rating:{
@@ -45,7 +46,9 @@ const productSchema = mongoose.Schema({
         type:Number,
         default:0
     },
-    reviews:{
+    reviews:
+    [
+        {
         name:{
             type:String,
             required:true
@@ -58,7 +61,8 @@ const productSchema = mongoose.Schema({
             type:String,
             required:true
         }
-    },
+    }
+],
     createdat:{
         type:Date,
         default:Date.now
