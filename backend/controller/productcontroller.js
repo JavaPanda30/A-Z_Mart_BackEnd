@@ -1,3 +1,4 @@
+const Errorhandler = require("../Utils/Errorhandler");
 const Product = require("../models/productmodel");
 
 //create product --Admin
@@ -31,16 +32,11 @@ exports.getallproducts = async (req, res) => {
     return res.status(500).json({ message: "Internal Error" });
   }
 };
-
 //Get Product Details
-
-exports.getProductdetails = async (req, res) => {
+exports.getProductdetails = async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   if (!product) {
-    return res.status(500).json({
-      success: false,
-      message: "product not found",
-    });
+    return next(new Errorhandler("this product not found", 404));
   }
   return res.status(200).json({
     success: true,
@@ -49,9 +45,8 @@ exports.getProductdetails = async (req, res) => {
 };
 
 //update Product --Admin
-
 exports.updateProduct = async (req, res) => {
-  let product = Product.findById(req.param.id);
+  let product = await Product.findById(req.params.id);
   if (!product) {
     return res.status(500).json({
       success: false,
