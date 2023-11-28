@@ -32,6 +32,22 @@ exports.getallproducts = async (req, res) => {
   }
 };
 
+//Get Product Details
+
+exports.getProductdetails = async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    return res.status(500).json({
+      success: false,
+      message: "product not found",
+    });
+  }
+  return res.status(200).json({
+    success: true,
+    product,
+  });
+};
+
 //update Product --Admin
 
 exports.updateProduct = async (req, res) => {
@@ -54,7 +70,6 @@ exports.updateProduct = async (req, res) => {
 };
 
 // Delete Product
-
 exports.deleteProduct = async (req, res) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
