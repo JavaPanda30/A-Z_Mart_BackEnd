@@ -1,13 +1,12 @@
 const Errorhandler = require("../Utils/Errorhandler");
-const Product = require("../models/productmodel");
 const catchasyncError = require("../middleware/catchasyncError");
+const Product = require("../models/productmodel");
 const ApiFeatures = require("../Utils/apifeatures");
-const dotenv = require("dotenv")
-dotenv.config({path:"/bakend/config/config.env"})
-
+const dotenv = require("dotenv");
+dotenv.config({ path: "/bakend/config/config.env" });
 
 //create product --Admin
-exports.createProduct = catchasyncError(async (req, res, next) => {
+exports.createProduct = catchasyncError(async (req, res) => {
   console.log(req.body);
   try {
     const product = await Product.create(req.body);
@@ -85,5 +84,3 @@ exports.deleteProduct = catchasyncError(async (req, res, next) => {
     return next(new Errorhandler("Product not found", 404));
   }
 });
-
-
