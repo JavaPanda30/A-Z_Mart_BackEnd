@@ -6,8 +6,6 @@ const connectdatabase = () =>{
         { useNewUrlParser: true, useUnifiedTopology: true })
         .then((data) => {
             console.log("MongoDB Connected with server")
-        }).catch((error) => {
-            console.log("Mongo Error: "+error)
         })
 }
 

@@ -1,6 +1,10 @@
 const Errorhandler = require("../Utils/Errorhandler");
 const Product = require("../models/productmodel");
 const catchasyncError = require("../middleware/catchasyncError");
+const ApiFeatures = require("../Utils/apifeatures");
+const dotenv = require("dotenv")
+dotenv.config({path:"/bakend/config/config.env"})
+
 
 //create product --Admin
 exports.createProduct = catchasyncError(async (req, res, next) => {
@@ -22,18 +26,21 @@ exports.createProduct = catchasyncError(async (req, res, next) => {
 });
 
 // Get All Product
-exports.getallproducts = catchasyncError(async (req, res, next) => {
-  try {
-    const products = await Product.find();
-    if (products) {
-      return res.status(200).json({
-        success: true,
-        products,
-      });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
+exports.getallproducts = catchasyncError(async (req, res) => {
+  const resultperpage = process.env.PERPAGE;
+  const productCount = await Product.countDocuments();
+
+  const apiFeature = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resultperpage);
+  const products = await apiFeature.query;
+
+  res.status(200).json({
+    success: true,
+    products,
+    productCount,
+  });
 });
 
 //Get Product Details
@@ -67,22 +74,16 @@ exports.updateProduct = catchasyncError(async (req, res, next) => {
 
 // Delete Product
 exports.deleteProduct = catchasyncError(async (req, res, next) => {
-  try {
-    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
-
-    if (deletedProduct) {
-      return res.status(200).json({
-        success: true,
-        message: "Product Deleted",
-        deletedProduct,
-      });
-    } else {
-      return next(new Errorhandler("Product not found", 404));
-    }
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message,
+  const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+  if (deletedProduct) {
+    return res.status(200).json({
+      success: true,
+      message: "Product Deleted",
+      deletedProduct,
     });
+  } else {
+    return next(new Errorhandler("Product not found", 404));
   }
 });
+
+
