@@ -7,6 +7,7 @@ dotenv.config({ path: "/bakend/config/config.env" });
 
 //create product --Admin
 exports.createProduct = catchasyncError(async (req, res) => {
+  req.body.user = req.user.id;
   console.log(req.body);
   try {
     const product = await Product.create(req.body);
