@@ -10,7 +10,6 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-
 //call for process.env
 dotenv.config({ path: "backend/config/config.env" });
 
@@ -29,4 +28,3 @@ process.on("unhandledRejection", (err) => {
     process.exit(1);
   });
 });
-

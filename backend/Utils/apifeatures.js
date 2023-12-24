@@ -1,57 +1,53 @@
 // api for search and Filter
-class ApiFeatures{
-    constructor(query,queryStr){
-        this.query=query;
-        this.queryStr=queryStr;
-    }
+class ApiFeatures {
+  constructor(query, queryStr) {
+    this.query = query;
+    this.queryStr = queryStr;
+  }
 
-    search(){
-        const keyword = this.queryStr.keyword
-        ? {
-            name:{
-                $regex: this.queryStr.keyword,
-                $options:"i",
-            },
+  search() {
+    const keyword = this.queryStr.keyword
+      ? {
+          name: {
+            $regex: this.queryStr.keyword,
+            $options: "i",
+          },
         }
-        :{};
-        this.query = this.query.find({...keyword});
-        return this;
-    }
+      : {};
+    this.query = this.query.find({ ...keyword });
+    return this;
+  }
 
-    filter(){
+  filter() {
+    const queryCopy = { ...this.queryStr };
 
-        const queryCopy = {...this.queryStr};
+    //removing some fields for category
+    const removeFields = ["keyword", "page", "limit"];
+    removeFields.forEach((key) => delete queryCopy[key]);
 
-        //removing some fields for category
-        const removeFields = ["keyword","page","limit"];
-        removeFields.forEach(key=>delete queryCopy[key]);
-        
-        // console.log(queryCopy)
-        
-        
-        //Filter for price and Rating
-        
-        let queryStr = JSON.stringify(queryCopy)
-        queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g,(key)=>`$${key}`);
+    // console.log(queryCopy)
 
-        
-        this.query = this.query.find(JSON.parse(queryStr));
-        
-        // console.log(queryStr)
-        
-        return this;
-    }
+    //Filter for price and Rating
 
-    pagination(resultperpage)
-    {
-        const currentPage = Number(this.queryStr.page) || 1;
+    let queryStr = JSON.stringify(queryCopy);
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
 
-        const skip = resultperpage*(currentPage-1);
+    this.query = this.query.find(JSON.parse(queryStr));
 
-        this.query = this.query.limit(resultperpage).skip(skip);
-        console.log(this.query);
-        return this;
-    }
+    // console.log(queryStr)
+
+    return this;
+  }
+
+  pagination(resultperpage) {
+    const currentPage = Number(this.queryStr.page) || 1;
+
+    const skip = resultperpage * (currentPage - 1);
+
+    this.query = this.query.limit(resultperpage).skip(skip);
+    console.log(this.query);
+    return this;
+  }
 }
 
-module.exports= ApiFeatures;
+module.exports = ApiFeatures;
