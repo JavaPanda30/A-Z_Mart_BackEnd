@@ -11,14 +11,17 @@ const {
 const { isAuthenticatedUser, authorizedRole } = require("../middleware/auth");
 const router = express.Router();
 
-router.route("/product").get(getallproducts);
 router
-  .route("/product/new")
+  .route("/admin/product")
+  .get(isAuthenticatedUser, authorizedRole("admin"), getallproducts);
+router
+  .route("/admin/product/new")
   .post(isAuthenticatedUser, authorizedRole("admin"), createProduct);
 router
-  .route("/product/:id")
+  .route("/admin/product/:id")
   .put(isAuthenticatedUser, authorizedRole("admin"), updateProduct)
-  .delete(isAuthenticatedUser, authorizedRole("admin"), deleteProduct)
-  .get(getProductdetails);
+  .delete(isAuthenticatedUser, authorizedRole("admin"), deleteProduct);
+
+router.route("/product/:id").get(getProductdetails);
 
 module.exports = router;
