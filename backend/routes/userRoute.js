@@ -17,23 +17,17 @@ const { authorizedRole, isAuthenticatedUser } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.route("/register").post(registerUser);
-
 router
   .route("/admin/users")
   .get(isAuthenticatedUser, authorizedRole("admin"), getAlluser);
 
 router
   .route("/admin/user/:id")
-  .get(isAuthenticatedUser, authorizedRole("admin"), getSingleuser);
-
-router
-  .route("/admin/user/role/:id")
-  .put(isAuthenticatedUser, authorizedRole("admin"), updataUserRole);
-
-router
-  .route("/admin/user/delete/:id")
+  .get(isAuthenticatedUser, authorizedRole("admin"), getSingleuser)
+  .put(isAuthenticatedUser, authorizedRole("admin"), updataUserRole)
   .delete(isAuthenticatedUser, authorizedRole("admin"), deleteUser);
+
+router.route("/register").post(registerUser);
 
 router.route("/login").post(loginUser);
 
