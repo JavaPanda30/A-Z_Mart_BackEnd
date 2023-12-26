@@ -85,3 +85,15 @@ exports.deleteProduct = catchasyncError(async (req, res, next) => {
     return next(new Errorhandler("Product not found", 404));
   }
 });
+
+//Create new Revview or Update a review
+exports.createProductReview = catchasyncError(async (req, res, next) => {
+  const { rating, comment, productId } = req.body;
+  const review = {
+    user: req.user._id,
+    name: req.user.name,
+    rating,
+    comment,
+    productId,
+  };
+});
