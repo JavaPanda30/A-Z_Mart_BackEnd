@@ -86,14 +86,42 @@ exports.deleteProduct = catchasyncError(async (req, res, next) => {
   }
 });
 
-//Create new Revview or Update a review
 exports.createProductReview = catchasyncError(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
   const review = {
     user: req.user._id,
     name: req.user.name,
-    rating,
+    rating: Number(rating),
     comment,
-    productId,
   };
+  const product = await Product.findById(productId);
+
+  // Check if the user has already reviewed the product
+  const existingReview = product.reviews.find(
+    (rev) => rev.user === req.user._id
+  );
+
+  if (existingReview) {
+    // Update the existing review
+    existingReview.rating = rating;
+    existingReview.comment = comment;
+  } else {
+    // Add a new review
+    product.reviews.push(review);
+  }
+
+  // Update the number of reviews
+  product.numberOfReviews = product.reviews.length;
+
+  // Calculate the average rating
+  let sum = 0;
+  product.reviews.forEach((rev) => {
+    sum += rev.rating;
+  });
+  product.ratings = sum / product.reviews.length;
+
+  // Save the updated product
+  await product.save({ validateBeforeSave: false });
+
+  res.status(200).json({ success: true, review });
 });
