@@ -86,6 +86,7 @@ exports.deleteProduct = catchasyncError(async (req, res, next) => {
   }
 });
 
+//Create New review or Update review
 exports.createProductReview = catchasyncError(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
   const review = {
@@ -98,20 +99,22 @@ exports.createProductReview = catchasyncError(async (req, res, next) => {
 
   // Check if the user has already reviewed the product
   const existingReview = product.reviews.find(
-    (rev) => rev.user === req.user._id
+    (rev) => rev.user.toString() === req.user._id.toString()
   );
 
   if (existingReview) {
     // Update the existing review
-    existingReview.rating = rating;
-    existingReview.comment = comment;
+    product.reviews.forEach((rev) => {
+      if (rev.user.toString() === req.user._id.toString())
+        existingReview.rating = rating;
+      existingReview.comment = comment;
+    });
   } else {
     // Add a new review
     product.reviews.push(review);
+    // Update the number of reviews
+    product.numberOfReviews = product.reviews.length;
   }
-
-  // Update the number of reviews
-  product.numberOfReviews = product.reviews.length;
 
   // Calculate the average rating
   let sum = 0;
@@ -124,4 +127,53 @@ exports.createProductReview = catchasyncError(async (req, res, next) => {
   await product.save({ validateBeforeSave: false });
 
   res.status(200).json({ success: true, review });
+});
+
+//Get product Reviews from ID
+exports.getProductReviews = catchasyncError(async (req, res, next) => {
+  const product = await Product.findById(req.query.id);
+  if (!product) {
+    return next(new Errorhandler("Product Not Found", 404));
+  }
+  res.status(200).json({
+    success: true,
+    review: product.reviews,
+  });
+});
+
+//Delete Reviews
+exports.deleteReview = catchasyncError(async (req, res, next) => {
+  const product = await Product.findById(req.query.productId);
+  if (!product) {
+    return next(new Errorhandler("Product Not Found", 404));
+  }
+  //can remove what we delete or only take those that we want
+  const reviews = product.reviews.filter((rev) => {
+    rev._id.toString() !== req.query.id;
+  });
+
+  // Calculate the average rating
+  let sum = 0;
+  product.reviews.forEach((rev) => {
+    sum += rev.rating;
+  });
+  const ratings = sum / reviews.length;
+  const numberOfReviews = reviews.length;
+  // Save the updated product
+  await Product.findByIdAndUpdate(
+    req.query.productId,
+    {
+      reviews,
+      ratings,
+      numberOfReviews,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+  await product.save({ validateBeforeSave: false });
+
+  res.status(200).json({ success: true, reviews });
 });
