@@ -2,7 +2,7 @@ const Errorhandler = require("../Utils/Errorhandler");
 const catchasyncError = require("../middleware/catchasyncError");
 const Product = require("../models/productmodel");
 const ApiFeatures = require("../Utils/apifeatures");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv"); 
 dotenv.config({ path: "/bakend/config/config.env" });
 
 //create product --Admin
@@ -99,14 +99,13 @@ exports.createProductReview = catchasyncError(async (req, res, next) => {
 
   // Check if the user has already reviewed the product
   const existingReview = product.reviews.find(
-    (rev) => rev.user.toString() === req.user._id.toString()
+    (rev) => rev.user === req.user._id
   );
 
   if (existingReview) {
     // Update the existing review
     product.reviews.forEach((rev) => {
-      if (rev.user.toString() === req.user._id.toString())
-        existingReview.rating = rating;
+      if (rev.user === req.user._id) existingReview.rating = rating;
       existingReview.comment = comment;
     });
   } else {
@@ -148,23 +147,22 @@ exports.deleteReview = catchasyncError(async (req, res, next) => {
     return next(new Errorhandler("Product Not Found", 404));
   }
   //can remove what we delete or only take those that we want
-  const reviews = product.reviews.filter((rev) => {
-    rev._id.toString() !== req.query.id;
-  });
-
+  const reviews = product.reviews.filter(rev=>
+    rev._id.toString()!==req.query.id
+  )
   // Calculate the average rating
   let sum = 0;
-  product.reviews.forEach((rev) => {
+  reviews.forEach((rev) => {
     sum += rev.rating;
   });
-  const ratings = sum / reviews.length;
+  const rating = sum / reviews.length;
   const numberOfReviews = reviews.length;
   // Save the updated product
   await Product.findByIdAndUpdate(
     req.query.productId,
     {
       reviews,
-      ratings,
+      rating,
       numberOfReviews,
     },
     {
