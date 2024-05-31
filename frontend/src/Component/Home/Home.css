@@ -1,0 +1,215 @@
+/* General styles for desktop and larger screens */
+.banner {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: linear-gradient(to right,rgba(164, 117, 30, 0.813),rgba(46, 185, 213, 0.813));
+  height: 100vmin;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.banner > h1 {
+  margin: 5vmax;
+  font: 600 2.5vmax "Roboto";
+}
+
+.banner > p {
+  font: 300 1.4vmax "Lucida Sans";
+}
+
+.banner > a > button {
+  margin-bottom: 5vmax;
+  cursor: pointer;
+  background-color: rgba(36, 14, 14, 0.27);
+  border: 1px solid white;
+  border-radius: 0;
+  padding: 1vmax;
+  transition: all 0.5s;
+  width: 9vmax;
+  font: 500 1vmax "Roboto";
+}
+
+.banner > a > button:hover {
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+  border-radius: 35px;
+}
+
+.banner::after {
+  content: "";
+  width: 100vw;
+  height: 100vmin;
+  background-color: #ffffff;
+  position: relative;
+  top: 0%;
+  clip-path: ellipse(50% 70% at 50% 100%);
+  left: 0;
+  max-width: 100%;
+  transition: clip-path 1s ease-in-out;
+  z-index: 0;
+}
+
+.banner.scroll-down::after {
+  animation: clipPathAnimation2 0.5s ease-in-out;
+  clip-path: ellipse(150% 70% at 50% 100%);
+}
+
+.banner.scroll-up::after {
+  animation: clipPathAnimation1 200ms ease-in-out;
+  clip-path: ellipse(50% 70% at 50% 100%);
+}
+
+@keyframes clipPathAnimation1 {
+  0% {
+      clip-path: ellipse(150% 70% at 50% 100%);
+  }
+  100% {
+      clip-path: ellipse(50% 70% at 50% 100%);
+  }
+}
+
+@keyframes clipPathAnimation2 {
+  0% {
+      clip-path: ellipse(50% 70% at 50% 100%);
+  }
+  100% {
+      clip-path: ellipse(150% 70% at 50% 100%);
+  }
+}
+
+.homeHeading {
+  text-align: center;
+  font-family: Roboto;
+  font-size: 1.4vmax;
+  border-bottom: 1px solid rgba(21, 21, 21, 0.5);
+  width: 20vmax;
+  padding: 1vmax;
+  margin: 5vmax auto;
+  color: rgb(0, 0, 0, 0.7);
+}
+
+.productCard {
+  width: 14vmax;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: rgb(48, 48, 48);
+  margin: 2vmax;
+  transition: all 0.5s;
+  padding-bottom: 0.5vmax;
+}
+
+.productCard > img {
+  width: 14vmax;
+}
+
+.productCard > div {
+  margin: 0.5vmax;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.productCardSpan {
+  margin: 0.5vmax;
+  font: 300 0.7vmax "Roboto";
+}
+
+.productCard > p {
+  font-family: "Roboto";
+  font-size: 1.2vmax;
+  margin: 1vmax 0.5vmax;
+  margin-bottom: 0;
+}
+
+.productCard > span {
+  margin: 0.5vmax;
+  color: tomato;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 1vmax;
+}
+
+.productCard:hover {
+  box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
+  transform: translateY(-1vmax);
+}
+
+.container1 {
+  display: flex;
+  margin: 2vmax auto;
+  width: 80vw;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+}
+
+span{
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+/* Mobile specific styles */
+@media screen and (max-width: 600px) {
+  .banner {
+      height: 60vmin;
+  }
+  .banner > h1 {
+      margin: 2vmax;
+      font-size: 4vmax;
+  }
+
+  .banner > p {
+      font-size: 3vmax;
+  }
+
+  .banner > a > button {
+      padding: 1vmax;
+      width: 25vmax;
+      font-size: 2.5vmax;
+      display: none;
+  }
+  .banner > a > button>span{
+    padding: 0px;
+    font-size: x-large;
+  }
+  .homeHeading {
+      font-size: 2vmax;
+      width: 60vw;
+      padding: 2vmax;
+  }
+
+  .productCard {
+      width: 30vmax;
+      margin: 1vmax;
+      padding-bottom: 1vmax;
+  }
+
+  .productCard > img {
+      width: 30vmax;
+  }
+
+  .productCard > div {
+      margin: 0vmax;
+      display: block;
+  }
+
+  .productCard > span {
+      font-size: 2vmax;
+  }
+
+  .productCard > div > span {
+      margin: 0 0.5vmax;
+      font-size: 2vmax;
+  }
+
+  .container1 {
+      width: 100vw;
+  }
+}
