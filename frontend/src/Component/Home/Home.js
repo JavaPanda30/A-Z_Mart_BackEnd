@@ -28,11 +28,11 @@ const Home = () => {
   return (
     <Fragment>
       <MetaData title='AZ Mart-One StopShop for Anything Everything'/>
-      <div className="banner">
+      <div className="banner poppins-thin">
         <h1>Welcome to AZ Mart</h1>
         <p>Find Amazing Products Below</p>
         <a href="#container1">
-          <button>
+          <button className="shopNow">
             Shop Now
             <span>
             <CG.CgMouse />
