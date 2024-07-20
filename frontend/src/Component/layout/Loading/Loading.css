@@ -1,0 +1,27 @@
+.loading-screen{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0.5vw;
+    margin-top: 20vh;
+    margin-bottom: 45vh;
+    font-size: x-large;
+}
+#loadingpara{
+    padding: 40px;
+    font: 400;
+    font-size: larger;
+    font-style: italic;
+    color: rgb(38, 171, 201);
+    background-color: linear-gradient(rgb(209, 162, 75),rgb(82, 82, 219));
+}
+
+@media screen and (max-width: 600px){
+    .loading-screen{
+        display: flex;
+        text-wrap:pretty;
+        font-size: medium;
+    }
+}

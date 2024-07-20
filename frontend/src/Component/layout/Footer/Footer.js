@@ -17,7 +17,7 @@ function Footer({ isSidebarActive }) {
       <div className="mid-footer">
         <h1>AZ Mart</h1>
         <p>Explore Everything, Find Anything, Only at AZ Mart!</p>
-        <p> &copy; Made By Suyash</p>
+        <p> &copy; Made with ❤️ By Suyash</p>
       </div>
       <div className="right-footer">
         <h3>Follow Us</h3>

@@ -4,6 +4,7 @@ const cookieparser = require("cookie-parser");
 app.use(express.json());
 app.use(cookieparser());
 //route imports
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const product = require("./routes/productroute");
 const user = require("./routes/userRoute");

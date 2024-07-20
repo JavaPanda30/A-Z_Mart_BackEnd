@@ -5,9 +5,9 @@
   align-items: center;
   background-color: #318d9faa;
   color: #ffffff;
-  padding: 20px;
   font-family: Arial, sans-serif;
-  z-index: 20;
+  z-index: 10;
+  width: 100vw;
 }
 
 .left-footer, .mid-footer, .right-footer {
@@ -86,9 +86,6 @@ a:hover {
 
 /* Mobile styles */
 @media screen and (max-width: 767px) {
-  #footer {
-    padding: 10px;
-  }
 
   .left-footer h3, .right-footer h3 {
     font-size: 18px;

@@ -2,10 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 .banner {
+  width: 100vw;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: linear-gradient(to right,rgba(164, 117, 30, 0.813),rgba(46, 185, 213, 0.813));
+  background-image: linear-gradient(to top,rgba(201, 12, 218, 0.686),#57bbcfaa);
   height: 100vmin;
   display: flex;
   flex-direction: column;
@@ -51,7 +52,7 @@
   content: "";
   width: 100vw;
   height: 100vmin;
-  background-color: #ffffff;
+  background-color: white;
   position: relative;
   top: 0%;
   clip-path: ellipse(50% 70% at 50% 100%);
@@ -97,8 +98,11 @@
   width: 20vmax;
   padding: 1vmax;
   margin: 5vmax auto;
+  margin-top: 0.2vh;
   color: rgb(0, 0, 0, 0.7);
 }
+
+/* For product card thing */
 
 .productCard {
   width: 14vmax;
@@ -136,7 +140,7 @@
 
 .productCard > span {
   margin: 0.5vmax;
-  color: tomato;
+  color: rgb(232, 88, 63);
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 1vmax;
 }
@@ -165,7 +169,8 @@ span{
 /* Mobile specific styles */
 @media screen and (max-width: 600px) {
   .banner {
-      height: 60vmin;
+    padding: 0;
+    height: 43vmin;
   }
   .banner > h1 {
       margin: 2vmax;
@@ -187,7 +192,7 @@ span{
     font-size: x-large;
   }
   .homeHeading {
-      font-size: 2vmax;
+      font-size: 5vmax;
       width: 60vw;
       padding: 2vmax;
   }
@@ -196,6 +201,11 @@ span{
       width: 30vmax;
       margin: 1vmax;
       padding-bottom: 1vmax;
+      border: 1px solid rgba(0, 0, 0, 0.111);
+  }
+  
+  .productCard p{
+    font-size: 5vmin;
   }
 
   .productCard > img {
@@ -204,16 +214,21 @@ span{
 
   .productCard > div {
       margin: 0vmax;
+      font-size: 5vmin;
       display: block;
   }
 
   .productCard > span {
       font-size: 2vmax;
+      flex-direction: column;
+      margin-top: 5vmin;
+      font-size: 5vmin;
   }
 
   .productCard > div > span {
       margin: 0 0.5vmax;
       font-size: 2vmax;
+      flex-direction: column;
   }
 
   .container1 {
