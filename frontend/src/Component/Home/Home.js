@@ -6,6 +6,7 @@ import MetaData from "../layout/MetaData.js";
 import { getProduct } from "../../actions/productAction.js";
 import { useDispatch, useSelector } from "react-redux";
 import { Loading } from "../layout/Loading/Loading.js";
+import { useAlert } from "react-alert";
 
 window.addEventListener("scroll", function () {
   var scrollPosition = window.scrollY;
@@ -29,16 +30,19 @@ const Home = () => {
   const { loading, error, products, productCount } = useSelector(
     (state) => state.products
   );
-
+  const alert = useAlert();
   useEffect(() => {
+    if (error) {
+      return alert.error(error);
+    }
     dispatch(getProduct());
-  }, [dispatch]);
+  }, [alert, dispatch, error]);
 
   return (
     <Fragment>
       {loading ? (
-       <>
-        <Loading/>
+        <>
+          <Loading />
         </>
       ) : (
         <Fragment>

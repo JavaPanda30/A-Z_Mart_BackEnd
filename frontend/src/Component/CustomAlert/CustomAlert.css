@@ -1,0 +1,16 @@
+.alertdiv{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 10px solid rgba(128, 128, 128, 0.406);
+    border-right: 0.5vw solid rgba(128, 128, 128, 0.411);
+}
+
+@media screen and (max-width:687px){
+    .alertdiv{
+        display: flex;
+        height: fit-content;
+        width: fit-content;
+        padding: 0;
+        margin: 0;
+    }
+}

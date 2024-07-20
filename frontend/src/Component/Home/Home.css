@@ -6,7 +6,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: linear-gradient(to top,rgba(201, 12, 218, 0.686),#57bbcfaa);
+  background-image: linear-gradient(to top,#d247deaf,#57bbcfaa);
   height: 100vmin;
   display: flex;
   flex-direction: column;
