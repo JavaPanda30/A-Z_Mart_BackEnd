@@ -50,7 +50,7 @@ function Sidebar() {
                 <AiIcons.AiOutlineShoppingCart />
               </button>
               <button className="login-btn">Login</button>
-              <img src="assets/logo.png" alt="logo" />
+              <img src="/assets/logo.png" alt="logo" />
             </div>
           </div>
         </div>

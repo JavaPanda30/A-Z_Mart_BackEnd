@@ -78,7 +78,7 @@ exports.deleteProduct = catchasyncError(async (req, res, next) => {
   if (deletedProduct) {
     return res.status(200).json({
       success: true,
-      message: "Product Deleted",
+      message: "Product Deleted", 
       deletedProduct,
     });
   } else {

@@ -11,13 +11,13 @@ export const SidebarData = [
     },
     {
         title:"Profile",
-        path:"/report",
+        path:"/profile",
         icon:<FaIcons.FaUserNinja />,
         cName:'nav-text'
     },
     {
         title:"Product",
-        path:"/",
+        path:"/product",
         icon:<FaIcons.FaCartPlus />,
         cName:'nav-text'
     }

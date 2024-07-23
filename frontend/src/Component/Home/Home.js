@@ -26,11 +26,13 @@ window.addEventListener("scroll", function () {
 });
 
 const Home = () => {
+
   const dispatch = useDispatch();
-  const { loading, error, products, productCount } = useSelector(
-    (state) => state.products
-  );
+
+  const { loading, error, products } = useSelector((state) => state.products);
+
   const alert = useAlert();
+  
   useEffect(() => {
     if (error) {
       return alert.error(error);
